@@ -2,44 +2,43 @@
  const bcrypt = require("bcrypt")
  const jwt = require("jsonwebtoken")
  
- const SignUp = async (req, res)=>{
-    const {FirstName,LastName,Email,Password} = req.body
-    if (!FirstName||!LastName||!Email||!Password) {
-        res.status(400).send({message : "All Fields are mandatory"});
-    } else {
-
-        
-        try {
-            const validateUser = await userModel.findOne({Email})
-
-            if (validateUser) {
-                res.status(400).send({ message: "User Already Exists" });  
-            }else{
-                const hashPassword = await bcrypt.hash(Password,10)
-
-                const createUser = await userModel.create({
-                    FirstName,
-                    LastName,
-                    Email,
-                    Password:hashPassword
-                })
-    
-                if (createUser) {
-                    res.status(200).send({
-                        message: `Account Created Successfully for ${createUser.FullName}`,
-                        status: "success",
-                      });
-                } else {
-                    res.status(400).send({message:"Unable to create user's account"});
-                }
-            }
-
-          
-        } catch (error) {
-            res.status(500).send({message:"Internal Server Error"});
-          }
-        }
+ const SignUp = async (req, res) => {
+    const { FirstName, LastName, Email, Password } = req.body;
+  
+    if (!FirstName || !LastName || !Email || !Password) {
+      return res.status(400).send({ message: "All Fields are mandatory" });
     }
+  
+    try {
+      const validateUser = await userModel.findOne({ Email });
+  
+      if (validateUser) {
+        return res.status(400).send({ message: "User Already Exists" });
+      }
+  
+      const hashPassword = await bcrypt.hash(Password, 10);
+  
+      const createUser = await userModel.create({
+        FirstName,
+        LastName,
+        Email,
+        Password: hashPassword
+      });
+  
+      if (createUser) {
+        return res.status(200).send({
+          message: `Account Created Successfully for ${createUser.FirstName} ${createUser.LastName}`,
+          status: "success",
+        });
+      } else {
+        return res.status(400).send({ message: "Unable to create user's account" });
+      }
+    } catch (error) {
+      console.error('Error during signup:', error); // Log the error for debugging
+      return res.status(500).send({ message: "Internal Server Error" });
+    }
+  };
+  
 
     const Login = async (req,res) =>{
         const {Email,Password} = req.body
