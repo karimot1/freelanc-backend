@@ -21,7 +21,8 @@ const Users = async (req, res) => {
         return res.status(201).send({
           message: `Username created successfully for ${createUsername.usernames}`,
           status: "success",
-          userId: createUsername._id // Send user ID in response
+          userId: createUsername._id, // Send user ID in response
+          Usernames: createUsername.usernames
         });
       } else {
         return res.status(400).send({ message: "Unable to create username"  });

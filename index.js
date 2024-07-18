@@ -1,7 +1,8 @@
-const express = require("express")
-const ConnectDB = require("./config/dbconfig")
-const env = require("dotenv").config()
-const userRoute  = require("./Routes/userRoute")
+const express = require("express");
+const ConnectDB = require("./config/dbconfig");
+const env = require("dotenv").config();
+const userRoute  = require("./Routes/userRoute");
+const profileinfoRoute = require("./Routes/profileinfoRoute");
 const cors =require("cors")
 
 const app = express()
@@ -9,6 +10,7 @@ const app = express()
 app.use(express.json())
 app.use(cors({origin:"*"}))
 app.use("/Api/users",userRoute)
+app.use("/Api/profile", profileinfoRoute)
 
 
 ConnectDB()

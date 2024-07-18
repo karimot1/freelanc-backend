@@ -29,6 +29,11 @@
         return res.status(200).send({
           message: `Account Created Successfully for ${createUser.FirstName} ${createUser.LastName}`,
           status: "success",
+          createUser:{
+             FirstName,
+        LastName,
+        Email,
+          }
         });
       } else {
         return res.status(400).send({ message: "Unable to create user's account" });
