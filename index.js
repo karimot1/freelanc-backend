@@ -14,7 +14,7 @@ app.use("/Api/profile", profileinfoRoute)
 
 
 ConnectDB()
-const port = process.env.PORTS || 5001
+const port = process.env.PORTS || 5200
 
 
 app.listen(port,()=>{

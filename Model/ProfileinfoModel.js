@@ -1,6 +1,14 @@
 const mongoose = require("mongoose");
 
 const ProfileinfoSchema = new mongoose.Schema({
+    FirstName:{type:String,required:[true,"FirstName is Required"]},
+        LastName:{type:String,required:[true,"LastName is Required"]},
+        Email: {
+            type: String,
+            required:[true,"Email is required"],
+            unique:true, 
+            message:"Email already in use", 
+        },
     JobType: {
         type: String,
         required: true,
